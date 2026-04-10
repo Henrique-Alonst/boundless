@@ -705,6 +705,7 @@
               <a class="link-btn" href="https://youtube.com" target="_blank"><span>▶</span> YouTube</a>
               <a class="link-btn" href="https://linkedin.com" target="_blank"><span>◈</span> LinkedIn</a>
               <a class="link-btn" href="https://chatgpt.com" target="_blank"><span>✦</span> ChatGPT</a>
+              <a class="link-btn" href="https://members.kiwify.com/login?club=b6de4ed5-f0c2-48a7-b226-6c78e2c01048" target="_blank"><span>✈</span> Inglês</a>
             </div>
           </div>
 
