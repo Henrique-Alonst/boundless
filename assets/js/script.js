@@ -30,6 +30,8 @@ const views = {
   home:     document.getElementById('view-home'),
   caderno:  document.getElementById('view-caderno'),
   projetos: document.getElementById('view-projetos'),
+  financas: document.getElementById('view-financas'),
+  objetivos: document.getElementById('view-objetivos'),
 };
 
 function showView(name) {
@@ -40,8 +42,8 @@ function showView(name) {
 
 document.getElementById('btnCaderno') .addEventListener('click', () => showView('caderno'));
 document.getElementById('btnProjetos').addEventListener('click', () => showView('projetos'));
-document.getElementById('btnMetas').addEventListener('click', () => showView('metas'));
-document.getElementById('btnFinancas').addEventListener('click', () => showView('financas'));
+document.getElementById('btnObjetivos').addEventListener('click', () => showView('objetivos'));
+document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));
 document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => showView('home')));
 
 // ===== CADERNO =====
@@ -152,4 +154,28 @@ document.getElementById('btnAddProject').addEventListener('click', () => {
   projImg.value = '';
   imgPreview.style.display = 'none';
   imgPreview.src = '';
+});
+
+// ===== OBJETIVOS — PREVIEW DE IMAGEM =====
+const projImgObj    = document.getElementById('projImgObj');
+const imgPreviewObj = document.getElementById('imgPreviewObj');
+
+projImgObj.addEventListener('change', () => {
+  const file = projImgObj.files[0];
+  if (!file) { imgPreviewObj.style.display = 'none'; return; }
+  const reader = new FileReader();
+  reader.onload = e => { imgPreviewObj.src = e.target.result; imgPreviewObj.style.display = 'block'; };
+  reader.readAsDataURL(file);
+});
+
+// ===== OBJETIVOS — ADICIONAR =====
+document.getElementById('btnAddProjectObj').addEventListener('click', () => {
+  const nome   = document.getElementById('projNomeObj').value.trim();
+  const desc   = document.getElementById('projDescObj').value.trim();
+  const status = document.getElementById('projStatusObj').value;
+
+  if (!nome) { alert('Informe pelo menos o nome do objetivo.'); return; }
+
+  // montar card aqui quando quiser
+  alert('Objetivo salvo: ' + nome);
 });

@@ -47,11 +47,11 @@
                   <span class="card-sub">FINANÇAS →</span>
                 </div>
               </div>
-              <div class="nav-card" id="btnMetas">
+              <div class="nav-card" id="btnObjetivos">
                 <span class="big-icon">📒</span>
                 <div>
-                  <div>Metas</div>
-                  <span class="card-sub">METAS →</span>
+                  <div>Objetivos</div>
+                  <span class="card-sub">OBJETIVOS →</span>
                 </div>
               </div>
               <div class="nav-card" id="btnProjetos">
@@ -116,8 +116,8 @@
     <!-- ====== PROJETOS ====== -->
     <?php require_once 'pages/projetos.php'; ?>
 
-    <!-- ====== METAS ====== -->
-    <?php require_once 'pages/metas.php'; ?>
+    <!-- ====== OBJETIVOS ====== -->
+    <?php require_once 'pages/objetivos.php'; ?>
 
     <!-- ====== FINANÇAS ====== -->
     <?php require_once 'pages/financas.php'; ?>
