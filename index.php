@@ -27,6 +27,7 @@
               <a class="link-btn" href="https://linkedin.com" target="_blank"><span>◈</span> LinkedIn</a>
               <a class="link-btn" href="https://chatgpt.com" target="_blank"><span>✦</span> ChatGPT</a>
               <a class="link-btn" href="https://members.kiwify.com/login?club=b6de4ed5-f0c2-48a7-b226-6c78e2c01048" target="_blank"><span>✈</span> Inglês</a>
+              <a class="link-btn" href="https://portalaluno.qi.edu.br/" target="_blank"><span>모</span> FAQI</a>
             </div>
           </div>
 
@@ -136,7 +137,14 @@
     <div class="postit-label">lembrete</div>
     <div class="postit-text">Não esqueça de commitar o projeto hoje! 📌</div>
   </div>
-
+  
+  <script src="assets/js/utils.js"></script>
   <script src="assets/js/script.js"></script>
+  
+  <script src="assets/js/caderno.js"></script>
+  <script src="assets/js/financas.js"></script>
+  <script src="assets/js/objetivos.js"></script>
+  <script src="assets/js/projetos.js"></script>
+  
 </body>
 </html>
