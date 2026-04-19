@@ -1,5 +1,6 @@
 // assets/js/script.js
-
+financas: document.getElementById('view-financas')
+document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));
 // ===== HELPERS =====
 const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const dias   = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
@@ -64,10 +65,25 @@ function addGoal() {
   const texto = newGoalInput.value.trim();
   if (!texto) return;
 
-  // TODO: fetch('api/metas.php', { method: 'POST', body: JSON.stringify({ texto }) })
   const label = document.createElement('label');
   label.classList.add('goal-item');
   label.innerHTML = `<input type="checkbox" onchange="toggleGoal(this)"><span>${texto}</span>`;
+
+  // Botão apagar
+  const btnDel = document.createElement('button');
+  btnDel.textContent = '✕';
+  btnDel.style.cssText = `
+    background:none; border:none; cursor:pointer;
+    color:var(--ink-light); font-size:12px;
+    opacity:0.5; margin-left:auto; flex-shrink:0;
+    transition: opacity 0.15s;
+  `;
+  btnDel.addEventListener('click', (e) => {
+    e.preventDefault();
+    label.remove();
+  });
+
+  label.appendChild(btnDel);
   goalsList.appendChild(label);
   newGoalInput.value = '';
 }
@@ -75,6 +91,59 @@ function addGoal() {
 document.getElementById('btnAddGoal').addEventListener('click', addGoal);
 newGoalInput.addEventListener('keydown', e => { if (e.key === 'Enter') addGoal(); });
 
+// ===== POST-IT DRAG, EDIT E MULTI =====
+function initPostit(el) {
+  // Drag
+  let dx, dy, dragging = false;
+  el.addEventListener('mousedown', e => {
+    if (e.target.tagName === 'BUTTON') return;
+    dragging = true;
+    dx = e.clientX - el.getBoundingClientRect().left;
+    dy = e.clientY - el.getBoundingClientRect().top;
+    el.style.transition = 'none';
+  });
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    el.style.left   = (e.clientX - dx) + 'px';
+    el.style.top    = (e.clientY - dy) + 'px';
+    el.style.bottom = 'auto';
+  });
+  document.addEventListener('mouseup', () => { dragging = false; });
+
+  // Editar ao clicar no texto
+  const texto = el.querySelector('.postit-text');
+  texto.setAttribute('contenteditable', 'true');
+  texto.style.outline = 'none';
+  texto.style.cursor  = 'text';
+}
+
+// Inicializa o post-it original
+initPostit(document.querySelector('.floating-postit'));
+
+// Duplo clique no fundo cria novo post-it
+document.addEventListener('dblclick', e => {
+  if (e.target.closest('.floating-postit') || e.target.closest('.page')) return;
+
+  const cores = ['#e8c84a', '#f4a261', '#a8d8a8', '#a8d8ea', '#f4c4c4'];
+  const cor   = cores[Math.floor(Math.random() * cores.length)];
+
+  const novo = document.createElement('div');
+  novo.classList.add('floating-postit');
+  novo.style.left   = e.clientX + 'px';
+  novo.style.top    = e.clientY + 'px';
+  novo.style.bottom = 'auto';
+  novo.style.background = cor;
+  novo.innerHTML = `
+    <div class="postit-label">lembrete</div>
+    <div class="postit-text" contenteditable="true" style="outline:none;cursor:text;"></div>
+    <button onclick="this.closest('.floating-postit').remove()" style="position:absolute;top:4px;right:6px;background:none;border:none;cursor:pointer;font-size:12px;opacity:0.5;">✕</button>
+  `;
+  document.body.appendChild(novo);
+  initPostit(novo);
+
+  // Foca direto no texto
+  setTimeout(() => novo.querySelector('.postit-text').focus(), 50);
+});
 
 
 

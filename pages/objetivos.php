@@ -3,8 +3,8 @@
     <button class="back-btn" data-back>← Voltar</button>
 
     <div class="section">
-    <h2 class="section-title">🗂️ &nbsp;Novo Objetivo</h2>
-    <div class="project-form">
+    <h2 class="section-title" id="toggleObjetivos" style="cursor:pointer">🗂️ &nbsp;Novo Objetivo</h2>
+    <div class="project-form" id="formObjetivos">
       <p class="project-form-title">Preencha as informações do seu objetivo</p>
 
       <div class="form-row">

@@ -62,6 +62,7 @@
                   <span class="card-sub">VER TODOS →</span>
                 </div>
               </div>
+              
             </div>
           </div>
 
@@ -73,22 +74,7 @@
           <div class="section">
             <h2 class="section-title">◎ &nbsp;Metas</h2>
             <div class="goals-list" id="goalsList">
-              <label class="goal-item">
-                <input type="checkbox" onchange="toggleGoal(this)">
-                <span>Terminar o dashboard</span>
-              </label>
-              <label class="goal-item">
-                <input type="checkbox" checked onchange="toggleGoal(this)">
-                <span>Criar o wireframe da ideia</span>
-              </label>
-              <label class="goal-item">
-                <input type="checkbox" onchange="toggleGoal(this)">
-                <span>Estudar PHP para o backend</span>
-              </label>
-              <label class="goal-item">
-                <input type="checkbox" onchange="toggleGoal(this)">
-                <span>Fazer um projeto pessoal do zero</span>
-              </label>
+        
             </div>
             <div class="new-goal-row">
               <input type="text" id="newGoalInput" placeholder="Nova meta...">

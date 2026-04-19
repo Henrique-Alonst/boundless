@@ -3,8 +3,8 @@
   <button class="back-btn" data-back>← Voltar</button>
 
   <div class="section">
-    <h2 class="section-title">🗂️ &nbsp;Novo Projeto</h2>
-    <div class="project-form">
+    <h2 class="section-title" id="toggleProjetos" style="cursor:pointer;">🗂️ &nbsp;Novo Projeto</h2>
+    <div class="project-form" id="formProjetos">
       <p class="project-form-title">Preencha as informações do projeto</p>
 
       <div class="form-row">

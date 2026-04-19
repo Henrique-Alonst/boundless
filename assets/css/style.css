@@ -308,14 +308,19 @@ h1 {
 
 /* ===== PROJETOS — FORMULÁRIO ===== */
 .project-form {
-  background: var(--paper-dark);
-  border: 1.5px dashed var(--ink-light);
-  border-radius: 2px;
-  padding: 20px 24px;
-  margin-bottom: 32px;
-  display: flex;
+  /* adiciona isso nas propriedades que já existem */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  display: flex !important; /* sempre flex, controla pelo max-height */
   flex-direction: column;
   gap: 14px;
+  padding: 0 24px;
+}
+
+.project-form.aberto {
+  max-height: 600px;
+  padding: 20px 24px;
 }
 
 .project-form-title {
@@ -353,6 +358,16 @@ h1 {
 .field-group textarea::placeholder { color: var(--ink-light); font-style: italic; }
 
 #imgPreview {
+  max-width: 100%;
+  max-height: 120px;
+  border-radius: 2px;
+  display: none;
+  border: 1.5px solid var(--ink-light);
+  object-fit: cover;
+  margin-top: 6px;
+}
+
+#imgPreviewObj {
   max-width: 100%;
   max-height: 120px;
   border-radius: 2px;
