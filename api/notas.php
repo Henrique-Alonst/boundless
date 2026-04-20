@@ -1,25 +1,16 @@
 <?php
-// api/notas.php
-// Endpoint para gerenciar anotações
-// Futuramente conectar ao banco via includes/db.php
-
 header('Content-Type: application/json');
-// require_once '../includes/db.php'; // descomente quando tiver o banco
+require_once '../includes/db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Roteamento por método HTTP
+
 switch ($method) {
 
     case 'GET':
-        // Retorna todas as notas
-        // Exemplo futuro:
-        // $stmt = $pdo->query("SELECT * FROM notas ORDER BY criado_em DESC");
-        // echo json_encode($stmt->fetchAll());
-
-        echo json_encode([
-            ['id' => 1, 'texto' => 'Nota de exemplo', 'criado_em' => date('Y-m-d H:i:s')]
-        ]);
+        
+        $stmt = $pdo->query("SELECT * FROM notas ORDER BY criado_em DESC");
+        echo json_encode($stmt->fetchall());
         break;
 
     case 'POST':
@@ -32,33 +23,35 @@ switch ($method) {
             echo json_encode(['erro' => 'Texto não pode ser vazio.']);
             break;
         }
-
-        // Exemplo futuro:
-        // $stmt = $pdo->prepare("INSERT INTO notas (texto) VALUES (?)");
-        // $stmt->execute([$texto]);
-        // echo json_encode(['id' => $pdo->lastInsertId(), 'texto' => $texto]);
-
-        echo json_encode(['mensagem' => 'Nota salva (simulado)', 'texto' => $texto]);
+        $stmt = $pdo->prepare("INSERT INTO notas (texto) VALUES (?)");
+        $stmt->execute([$texto]);
+        echo json_encode(['id' => $pdo->lastInsertId(), 'texto' => $texto]);
         break;
+
 
     case 'DELETE':
-        // Remove uma nota por ID
         $id = intval($_GET['id'] ?? 0);
-
-        if (!$id) {
-            http_response_code(400);
-            echo json_encode(['erro' => 'ID inválido.']);
-            break;
-        }
-
-        // Exemplo futuro:
-        // $stmt = $pdo->prepare("DELETE FROM notas WHERE id = ?");
-        // $stmt->execute([$id]);
-
-        echo json_encode(['mensagem' => "Nota $id removida (simulado)"]);
+        $smt = $pdo->prepare("DELETE FROM notas WHERE id = ?");
+        $smt->execute([$id]);
+        echo json_encode(['mensagem' => 'Nota removida.']);
         break;
 
-    default:
-        http_response_code(405);
-        echo json_encode(['erro' => 'Método não permitido.']);
+    case 'PATCH':
+    $id = intval($_GET['id'] ?? 0);
+    $body = json_decode(file_get_contents('php://input'), true); 
+    $texto = trim($body['texto'] ?? '');
+    
+    if (!$id || empty($texto)) {
+        http_response_code(400);
+        echo json_encode(['erro' => 'Dados inválidos.']);
+        break;
+    }
+
+    $stmt = $pdo->prepare("UPDATE notas SET texto = ? WHERE id = ?");
+    $stmt->execute([$texto, $id]);
+    echo json_encode(['mensagem' => 'Nota atualizada.']);
+    break;
+
+        
+
 }
