@@ -1,15 +1,11 @@
-<!-- pages/financas.php -->
-<div class="view" id="view-financas">
-  <button class="back-btn" data-back>← Voltar</button>
+<!-- pages/cartao.php -->
+<div class="view" id="view-cartao">
+  <button class="back-btn" data-back-financas>← Voltar</button>
 
   <div class="section">
-    <div class="financas-header">
-      <h2 class="section-title">💰 &nbsp;Finanças</h2>
-      <button class="btn-cartao" id="btnCartao">💳 Cartões</button>
-    </div>
-
-    <!-- Total geral -->
-    <div id="totalGeral" style="
+    <h2 class="section-title">💳 &nbsp;Cartões</h2>
+     
+     <div id="totalCartao" style="
       font-family: 'Special Elite', monospace;
       font-size: 13px;
       letter-spacing: 1px;
@@ -23,19 +19,17 @@
       align-items: center;
     ">
       <span>TOTAL GERAL</span>
-      <span id="totalGeralValor" style="font-size:16px; color: var(--ink); font-family:'Caveat',cursive; font-weight:700;">R$ 0,00</span>
+      <span id="totalCartaoValor" style="font-size:16px; color: var(--ink); font-family:'Caveat',cursive; font-weight:700;">R$ 0,00</span>
     </div>
 
-    <!-- Grade de meses -->
-    <div id="mesesGrid" style="
+    <div id="cartaoGrid" style="
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 20px;
       margin-bottom: 28px;
     "></div>
 
-    <!-- Botão adicionar mês -->
-    <button id="btnAddMes" style="
+    <button id="btnAddCartao" style="
       font-family: 'Special Elite', monospace;
       font-size: 12px;
       letter-spacing: 1.5px;
@@ -47,10 +41,9 @@
       padding: 10px 22px;
       cursor: pointer;
       transition: background 0.18s;
-    ">+ Novo Mês</button>
+    ">+ Novo Cartão</button>
   </div>
 
-  <!-- Anotação livre -->
   <div class="section">
     <h2 class="section-title">✎ &nbsp;Observações</h2>
     <textarea id="finObservacao" placeholder="Ex: esse mês preciso gastar menos..." style="
@@ -68,4 +61,7 @@
       padding: 4px;
     "></textarea>
   </div>
+
+  </div>
 </div>
+

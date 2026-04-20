@@ -97,6 +97,7 @@
 
     <!-- ====== FINANÇAS ====== -->
     <?php require_once 'pages/financas.php'; ?>
+    <?php require_once 'pages/cartao.php'; ?>
 
 
   </div><!-- /page -->
@@ -118,6 +119,7 @@
   
   <script src="assets/js/caderno.js"></script>
   <script src="assets/js/financas.js"></script>
+  <script src="assets/js/cartao.js"></script>
   <script src="assets/js/objetivos.js"></script>
   <script src="assets/js/projetos.js"></script>
   

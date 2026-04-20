@@ -4,7 +4,7 @@
 // Preencha com suas credenciais quando for integrar o backend
 
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'meu_ambiente');
+define('DB_NAME', 'boundless');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 

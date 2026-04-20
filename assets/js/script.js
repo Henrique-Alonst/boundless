@@ -33,6 +33,7 @@ const views = {
   projetos: document.getElementById('view-projetos'),
   financas: document.getElementById('view-financas'),
   objetivos: document.getElementById('view-objetivos'),
+  cartao: document.getElementById('view-cartao'),
 };
 
 function showView(name) {
@@ -45,7 +46,9 @@ document.getElementById('btnCaderno') .addEventListener('click', () => showView(
 document.getElementById('btnProjetos').addEventListener('click', () => showView('projetos'));
 document.getElementById('btnObjetivos').addEventListener('click', () => showView('objetivos'));
 document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));
+document.getElementById('btnCartao').addEventListener('click', () => showView('cartao'))
 document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => showView('home')));
+document.querySelectorAll('[data-back-financas]').forEach(btn => btn.addEventListener('click', () => showView('financas')));
 
 // ===== METAS =====
 function toggleGoal(checkbox) {

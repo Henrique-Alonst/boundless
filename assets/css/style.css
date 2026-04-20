@@ -682,3 +682,45 @@ h1 {
   h1 { font-size: 2.2rem; }
   .form-row { flex-direction: column; }
 }
+
+/* ===== HEADER FINANÇAS ===== */
+.financas-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.financas-header .section-title {
+  margin-bottom: 0;
+}
+
+.financas-header .section-title::after {
+  display: none;
+}
+
+/* ===== BOTÃO CARTÕES ===== */
+.btn-cartao {
+  font-family: 'Special Elite', monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink-faded);
+  background: var(--paper-aged);
+  border: 1.5px solid var(--ink-light);
+  border-radius: 2px;
+  padding: 7px 14px;
+  cursor: pointer;
+  transition: all 0.18s;
+  box-shadow: 2px 2px 0 var(--ink-light);
+  position: relative; top: 0; left: 0;
+  white-space: nowrap;
+}
+
+.btn-cartao:hover {
+  background: var(--accent);
+  border-color: var(--accent-dark);
+  color: #fff;
+  top: 2px; left: 2px;
+  box-shadow: 0 0 0 var(--ink-light);
+}
