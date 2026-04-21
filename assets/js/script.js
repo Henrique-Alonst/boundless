@@ -60,7 +60,6 @@ document.querySelectorAll('[data-back-financas]').forEach(btn => btn.addEventLis
 // ===== METAS =====
 function toggleGoal(checkbox) {
   checkbox.nextElementSibling.classList.toggle('done', checkbox.checked);
-  // TODO: fetch(`api/metas.php?id=${id}`, { method: 'PATCH', body: JSON.stringify({ concluida: checkbox.checked }) })
 }
 
 // Inicializa checkboxes já marcados
@@ -100,6 +99,7 @@ function addGoal() {
 
 document.getElementById('btnAddGoal').addEventListener('click', addGoal);
 newGoalInput.addEventListener('keydown', e => { if (e.key === 'Enter') addGoal(); });
+
 
 // ===== POST-IT DRAG, EDIT E MULTI =====
 function initPostit(el) {

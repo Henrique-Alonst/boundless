@@ -21,27 +21,28 @@ function initImageUpload(inputId, previewId) {
     reader.readAsDataURL(file);
   });
 
-  // Retorna função pra pegar o src quando precisar
   return () => preview.style.display !== 'none' ? preview.src : null;
 }
 
-//Botão de esconder/mostrar model de criar objetivos & projetos
 /**
+ * Accordion — clica no título pra abrir/fechar o form
  * @param {string} toggleId - id do título clicável
  * @param {string} formId   - id do form a mostrar/esconder
  */
 function initAccordion(toggleId, formId) {
   const toggle = document.getElementById(toggleId);
   const form   = document.getElementById(formId);
-  
 
   toggle.addEventListener('click', () => {
-    
     form.classList.toggle('aberto');
   });
 }
 
-// Cria botões de ação (editar/apagar) padronizados
+/**
+ * Cria botões de ação (editar/apagar) padronizados
+ * @param {Function} onEditar
+ * @param {Function} onApagar
+ */
 function criarAcoes(onEditar, onApagar) {
   const wrap = document.createElement('div');
   wrap.style.cssText = 'display:flex; gap:6px; margin-top:8px;';
@@ -75,7 +76,20 @@ function criarAcoes(onEditar, onApagar) {
   return wrap;
 }
 
-function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placeholder) {
+/**
+ * Adiciona um card de projeto/objetivo no grid
+ * @param {string} gridId       - id do grid onde o card vai entrar
+ * @param {string} nome         - nome do projeto/objetivo
+ * @param {string} desc         - descrição
+ * @param {string} status       - ativo | pausado | concluido
+ * @param {string} tags         - tags separadas por vírgula
+ * @param {string} link         - link externo
+ * @param {string|null} imgSrc  - src da imagem ou null
+ * @param {string} placeholder  - emoji placeholder quando não tem imagem
+ * @param {number|null} id      - id do banco de dados (null se não tiver backend)
+ * @param {string|null} endpoint - endpoint da api (ex: 'api/projetos.php')
+ */
+function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placeholder, id = null, endpoint = null) {
   const statusLabel = { ativo: 'Ativo', pausado: 'Pausado', concluido: 'Concluído' }[status];
 
   const tagHTML = tags
@@ -86,16 +100,12 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
     ? `<a class="card-link" href="${link}" target="_blank">↗ VER PROJETO</a>`
     : '';
 
-  const card = document.createElement('div');
-  card.classList.add('project-card');
-
   const imgEl = imgSrc
     ? `<img class="card-img" src="${imgSrc}" alt="${nome}">`
     : `<div class="card-img-placeholder">${placeholder}</div>`;
 
-  const statusTag = document.createElement('span');
-  statusTag.className = `tag status-${status}`;
-  statusTag.textContent = statusLabel;
+  const card = document.createElement('div');
+  card.classList.add('project-card');
 
   card.innerHTML = `
     ${imgEl}
@@ -109,7 +119,7 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
       ${linkHTML}
     </div>`;
 
-  // Editar status clicando na tag
+  // Ciclo de status ao clicar na tag
   const tagStatus = card.querySelector('.tag-status-editavel');
   const statusCiclo = ['ativo', 'pausado', 'concluido'];
   const labelCiclo  = ['Ativo', 'Pausado', 'Concluído'];
@@ -125,25 +135,44 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
 
   // Botões editar / apagar
   const acoes = criarAcoes(
-    // Editar nome e descrição
+    // Editar
     () => {
       const novoNome = prompt('Nome:', card.querySelector('.card-name').textContent);
       if (novoNome !== null && novoNome.trim()) {
-        card.querySelector('.card-name').textContent = novoNome.trim();
-      }
-      const novaDesc = prompt('Descrição:', card.querySelector('.card-desc').textContent);
-      if (novaDesc !== null) {
-        card.querySelector('.card-desc').textContent = novaDesc.trim() || 'Sem descrição.';
+        const novaDesc = prompt('Descrição:', card.querySelector('.card-desc').textContent);
+        if (id && endpoint) {
+          // Com backend — salva no banco
+          fetch(`${endpoint}?id=${id}`, {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ nome: novoNome.trim(), desc: novaDesc?.trim() || '' })
+          })
+          .then(() => {
+            card.querySelector('.card-name').textContent = novoNome.trim();
+            card.querySelector('.card-desc').textContent = novaDesc?.trim() || 'Sem descrição.';
+          });
+        } else {
+          // Sem backend — só atualiza na tela
+          card.querySelector('.card-name').textContent = novoNome.trim();
+          card.querySelector('.card-desc').textContent = novaDesc?.trim() || 'Sem descrição.';
+        }
       }
     },
-    // Apagar card
+    // Apagar
     () => {
-      if (confirm('Apagar este item?')) card.remove();
+      if (confirm('Apagar este item?')) {
+        if (id && endpoint) {
+          // Com backend — remove do banco
+          fetch(`${endpoint}?id=${id}`, { method: 'DELETE' })
+            .then(() => card.remove());
+        } else {
+          // Sem backend — só remove da tela
+          card.remove();
+        }
+      }
     }
   );
 
   card.querySelector('.card-body').appendChild(acoes);
   document.getElementById(gridId).prepend(card);
 }
-
-

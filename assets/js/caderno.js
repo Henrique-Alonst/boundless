@@ -75,3 +75,7 @@ document.getElementById('btnCaderno').addEventListener('click', () => {
   showView('caderno');
   carregarNotas();
 });
+
+if (localStorage.getItem('viewAtual') === 'caderno') {
+  carregarNotas();
+}

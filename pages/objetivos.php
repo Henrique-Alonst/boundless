@@ -33,7 +33,7 @@
         <img id="imgPreviewObj" src="" alt="Preview da imagem">
       </div>
 
-      <button class="add-project-btn" id="btnAddProjectObj">+ Adicionar Projeto</button>
+      <button class="add-project-btn" id="btnAddObjetivo">+ Adicionar Objetivo</button>
     </div>
   </div>
 

@@ -1,24 +1,15 @@
 <?php
-// api/metas.php
-// Endpoint para gerenciar metas
-// Futuramente conectar ao banco via includes/db.php
-
 header('Content-Type: application/json');
-// require_once '../includes/db.php'; // descomente quando tiver o banco
+require_once '../includes/db.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($method) {
 
     case 'GET':
-        // Retorna todas as metas
-        // Exemplo futuro:
-        // $stmt = $pdo->query("SELECT * FROM metas ORDER BY criado_em DESC");
-        // echo json_encode($stmt->fetchAll());
-
-        echo json_encode([
-            ['id' => 1, 'texto' => 'Terminar o dashboard', 'concluida' => false]
-        ]);
+        
+        $stmt = $pdo->query("SELECT * FROM metas ");
+        echo json_encode($stmt->fetchall());
         break;
 
     case 'POST':
@@ -31,13 +22,9 @@ switch ($method) {
             echo json_encode(['erro' => 'Texto não pode ser vazio.']);
             break;
         }
-
-        // Exemplo futuro:
-        // $stmt = $pdo->prepare("INSERT INTO metas (texto, concluida) VALUES (?, 0)");
-        // $stmt->execute([$texto]);
-        // echo json_encode(['id' => $pdo->lastInsertId()]);
-
-        echo json_encode(['mensagem' => 'Meta criada (simulado)', 'texto' => $texto]);
+        $stmt = $pdo->prepare("INSERT INTO metas (texto) VALUES (?)");
+        $stmt->execute([$texto]);
+        echo json_encode(['id' => $pdo->lastInsertId(), 'texto' => $texto]);
         break;
 
     case 'PATCH':
@@ -68,9 +55,7 @@ switch ($method) {
             break;
         }
 
-        // Exemplo futuro:
-        // $stmt = $pdo->prepare("DELETE FROM metas WHERE id = ?");
-        // $stmt->execute([$id]);
+    
 
         echo json_encode(['mensagem' => "Meta $id removida (simulado)"]);
         break;

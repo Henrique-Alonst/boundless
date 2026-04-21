@@ -52,6 +52,10 @@ switch ($method) {
     echo json_encode(['mensagem' => 'Nota atualizada.']);
     break;
 
+    default:
+    http_response_code(405);
+    echo json_encode(['erro' => 'Método não permitido.']);
+
         
 
 }
