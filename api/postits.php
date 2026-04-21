@@ -37,4 +37,9 @@ switch ($method) {
         $stmt = $pdo->prepare("DELETE FROM postits WHERE id = ?");
         $stmt->execute([$id]);
         break;
+
+    default:
+    http_response_code(405);
+    echo json_encode(['erro' => 'Método não permitido.']);
+
 }
