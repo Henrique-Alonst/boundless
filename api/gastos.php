@@ -7,39 +7,39 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
 
     case 'GET':
-        $cartao_id = intval($_GET['cartao_id'] ?? 0);
+        $fatura_id = intval($_GET['fatura_id'] ?? 0);
 
-        if (!$cartao_id) {
+        if (!$fatura_id) {
             http_response_code(400);
-            echo json_encode(['erro' => 'cartao_id inválido.']);
+            echo json_encode(['erro' => 'fatura_id inválido.']);
             break;
         }
 
-        $stmt = $pdo->prepare("SELECT * FROM gastos WHERE cartao_id = ? ORDER BY criado_em ASC");
-        $stmt->execute([$cartao_id]);
+        $stmt = $pdo->prepare("SELECT * FROM gastos WHERE fatura_id = ? ORDER BY criado_em ASC");
+        $stmt->execute([$fatura_id]);
         echo json_encode($stmt->fetchAll());
         break;
 
     case 'POST':
-        $body   = json_decode(file_get_contents('php://input'), true);
-        $cartao_id = intval($body['cartao_id'] ?? 0);
-        $nome   = trim($body['nome']   ?? '');
-        $valor  = floatval($body['valor'] ?? 0);
+        $body      = json_decode(file_get_contents('php://input'), true);
+        $fatura_id = intval($body['fatura_id'] ?? 0);
+        $pessoa    = trim($body['pessoa'] ?? '');
+        $valor     = floatval($body['valor'] ?? 0);
 
-        if (!$cartao_id || empty($nome)) {
+        if (!$fatura_id || empty($pessoa)) {
             http_response_code(400);
             echo json_encode(['erro' => 'Dados inválidos.']);
             break;
         }
 
-        $stmt = $pdo->prepare("INSERT INTO gastos (cartao_id, nome, valor) VALUES (?,?,?)");
-        $stmt->execute([$cartao_id, $nome, $valor]);
-        echo json_encode(['id' => $pdo->lastInsertId(), 'nome' => $nome, 'valor' => $valor]);
+        $stmt = $pdo->prepare("INSERT INTO gastos (fatura_id, pessoa, valor) VALUES (?,?,?)");
+        $stmt->execute([$fatura_id, $pessoa, $valor]);
+        echo json_encode(['id' => $pdo->lastInsertId(), 'pessoa' => $pessoa, 'valor' => $valor]);
         break;
 
     case 'PATCH':
-        $id    = intval($_GET['id'] ?? 0);
-        $body  = json_decode(file_get_contents('php://input'), true);
+        $id   = intval($_GET['id'] ?? 0);
+        $body = json_decode(file_get_contents('php://input'), true);
 
         if (!$id) {
             http_response_code(400);
@@ -47,7 +47,6 @@ switch ($method) {
             break;
         }
 
-        // Atualiza só o que foi enviado
         if (isset($body['pago'])) {
             $stmt = $pdo->prepare("UPDATE gastos SET pago = ? WHERE id = ?");
             $stmt->execute([intval($body['pago']), $id]);

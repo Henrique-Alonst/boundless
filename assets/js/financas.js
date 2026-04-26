@@ -61,6 +61,7 @@ function atualizarMes(card) {
   card.querySelector('.mes-total').textContent = `falta: ${formatBRL(totalGasto - totalPago)}`;
   card.querySelector('.mes-total').textContent = `falta: ${formatBRL(totalGasto - totalPago)}`;
   card.querySelector('.mes-gasto-total').textContent = `total: ${formatBRL(totalGasto)}`; // ← aqui
+
   const pct = totalGasto > 0 ? Math.round((totalPago / totalGasto) * 100) : 0;
   card.querySelector('.progress-fill').style.width = pct + '%';
   card.querySelector('.progress-label').textContent = `${pct}% pago`;

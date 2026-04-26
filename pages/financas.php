@@ -8,7 +8,7 @@
       <button class="btn-cartao" id="btnCartao">💳 Cartões</button>
     </div>
 
-    <!-- Total geral -->
+       <!-- Total geral -->
     <div id="totalGeral" style="
       font-family: 'Special Elite', monospace;
       font-size: 12px;

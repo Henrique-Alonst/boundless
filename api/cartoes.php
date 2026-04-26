@@ -1,4 +1,4 @@
-<?php 
+<?php
 header('Content-Type: application/json');
 require_once '../includes/db.php';
 
@@ -12,8 +12,8 @@ switch ($method) {
         break;
 
     case 'POST':
-        $body = json_decode(file_get_contents('php://input'), true);
-        $nome = trim($body['nome'] ?? '');
+        $body  = json_decode(file_get_contents('php://input'), true);
+        $nome  = trim($body['nome'] ?? '');
 
         if (empty($nome)) {
             http_response_code(400);
@@ -27,9 +27,9 @@ switch ($method) {
         break;
 
     case 'PATCH':
-        $id       = intval($_GET['id'] ?? 0);
-        $body     = json_decode(file_get_contents('php://input'), true);
-        $nome     = trim($body['nome'] ?? '');
+        $id     = intval($_GET['id'] ?? 0);
+        $body   = json_decode(file_get_contents('php://input'), true);
+        $nome   = trim($body['nome'] ?? '');
         $limite = floatval($body['limite'] ?? 0);
 
         if (!$id) {
@@ -40,7 +40,7 @@ switch ($method) {
 
         $stmt = $pdo->prepare("UPDATE cartoes SET nome = ?, limite = ? WHERE id = ?");
         $stmt->execute([$nome, $limite, $id]);
-        echo json_encode(['mensagem' => 'cartão atualizado.']);
+        echo json_encode(['mensagem' => 'Cartão atualizado.']);
         break;
 
     case 'DELETE':
@@ -54,11 +54,10 @@ switch ($method) {
 
         $stmt = $pdo->prepare("DELETE FROM cartoes WHERE id = ?");
         $stmt->execute([$id]);
-        echo json_encode(['mensagem' => 'cartão removido.']);
+        echo json_encode(['mensagem' => 'Cartão removido.']);
         break;
 
     default:
         http_response_code(405);
         echo json_encode(['erro' => 'Método não permitido.']);
 }
-
