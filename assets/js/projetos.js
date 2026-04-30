@@ -72,3 +72,5 @@ document.getElementById('btnProjetos').addEventListener('click', () => {
 if (localStorage.getItem('viewAtual') === 'projetos') {
   carregarProjetos();
 }
+
+initDragDrop('projectsGrid', 'api/projetos.php');

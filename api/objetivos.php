@@ -2,17 +2,46 @@
 header('Content-Type: application/json');
 require_once '../includes/db.php';
 
-// Permite simular PATCH via POST com FormData
+// --- 1. DEFINIÇÕES INICIAIS (Obrigatório vir primeiro) ---
+
+// Detecta o método (suporta simulação de PATCH via POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['_method'])) {
     $method = strtoupper($_POST['_method']);
 } else {
     $method = $_SERVER['REQUEST_METHOD'];
 }
 
+// Lê o corpo da requisição (necessário para o JSON do drag and drop)
+$input = json_decode(file_get_contents('php://input'), true);
+
+// --- 2. LÓGICA DE ORDENAÇÃO (Drag and Drop) ---
+
+if (isset($input['action']) && $input['action'] === 'update_order') {
+    $ids = $input['ids']; 
+    
+    $pdo->beginTransaction();
+    try {
+        foreach ($ids as $index => $id) {
+            $stmt = $pdo->prepare("UPDATE objetivos SET ordem = ? WHERE id = ?");
+            $stmt->execute([$index, $id]);
+        }
+        $pdo->commit();
+        echo json_encode(['status' => 'sucesso']);
+    } catch (Exception $e) {
+        $pdo->rollBack();
+        http_response_code(500);
+        echo json_encode(['erro' => $e->getMessage()]);
+    }
+    exit; // Importante para não executar o switch abaixo
+}
+
+// --- 3. OPERAÇÕES CRUD NORMAIS ---
+
 switch ($method) {
 
     case 'GET':
-        $stmt = $pdo->query("SELECT * FROM objetivos ORDER BY criado_em DESC");
+        // Busca ordenado pela coluna 'ordem'
+        $stmt = $pdo->query("SELECT * FROM objetivos ORDER BY ordem ASC");
         echo json_encode($stmt->fetchAll());
         break;
 
@@ -24,14 +53,11 @@ switch ($method) {
         $link   = trim($_POST['link']   ?? '');
 
         $nome_imagem = null;
-
         if (isset($_FILES['imagem_arquivo']) && $_FILES['imagem_arquivo']['error'] === 0) {
             $extensao  = strtolower(pathinfo($_FILES['imagem_arquivo']['name'], PATHINFO_EXTENSION));
             $novo_nome = uniqid() . '.' . $extensao;
             $diretorio = '../uploads/';
-
             if (!is_dir($diretorio)) mkdir($diretorio, 0777, true);
-
             if (move_uploaded_file($_FILES['imagem_arquivo']['tmp_name'], $diretorio . $novo_nome)) {
                 $nome_imagem = $novo_nome;
             }
@@ -43,7 +69,8 @@ switch ($method) {
             break;
         }
 
-        $stmt = $pdo->prepare("INSERT INTO objetivos (nome, descricao, status, tags, link, imagem) VALUES (?,?,?,?,?,?)");
+        // Ao inserir novo, ele fica com ordem 0 por padrão (ou você pode pegar o MAX(ordem) + 1)
+        $stmt = $pdo->prepare("INSERT INTO objetivos (nome, descricao, status, tags, link, imagem, ordem) VALUES (?,?,?,?,?,?, 0)");
         $stmt->execute([$nome, $desc, $status, $tags, $link, $nome_imagem]);
         echo json_encode(['id' => $pdo->lastInsertId(), 'nome' => $nome]);
         break;
@@ -60,18 +87,12 @@ switch ($method) {
         }
 
         $nome_imagem = null;
-
         if (isset($_FILES['imagem_arquivo']) && $_FILES['imagem_arquivo']['error'] === 0) {
             $extensao  = strtolower(pathinfo($_FILES['imagem_arquivo']['name'], PATHINFO_EXTENSION));
             $novo_nome = uniqid() . '.' . $extensao;
             $diretorio = '../uploads/';
-
-            if (!is_dir($diretorio)) mkdir($diretorio, 0777, true);
-
             if (move_uploaded_file($_FILES['imagem_arquivo']['tmp_name'], $diretorio . $novo_nome)) {
                 $nome_imagem = $novo_nome;
-
-                // Apaga imagem antiga
                 $stmtImg = $pdo->prepare("SELECT imagem FROM objetivos WHERE id = ?");
                 $stmtImg->execute([$id]);
                 $item = $stmtImg->fetch();
@@ -87,26 +108,24 @@ switch ($method) {
             $stmt->execute([$nome, $desc, $id]);
         }
 
-        echo json_encode(['mensagem' => 'Projeto atualizado.']);
+        echo json_encode(['mensagem' => 'Atualizado com sucesso.']);
         break;
 
     case 'DELETE':
         $id = intval($_GET['id'] ?? 0);
-
         if (!$id) {
             http_response_code(400);
             echo json_encode(['erro' => 'ID inválido.']);
             break;
         }
-
         $stmtImg = $pdo->prepare("SELECT imagem FROM objetivos WHERE id = ?");
         $stmtImg->execute([$id]);
         $projeto = $stmtImg->fetch();
-        if ($projeto && $projeto['imagem']) @unlink('../uploads/' . $projeto['imagem']);
+        if ($projeto && $projeto['imagem']) @unlink('../uploads/' . $projeto['projeto']);
 
         $stmt = $pdo->prepare("DELETE FROM objetivos WHERE id = ?");
         $stmt->execute([$id]);
-        echo json_encode(['mensagem' => "Projeto $id removido"]);
+        echo json_encode(['mensagem' => "Removido"]);
         break;
 
     default:

@@ -57,6 +57,8 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
 
   const card = document.createElement('div');
   card.classList.add('project-card');
+  
+  if(id) card.dataset.id = id;
 
   // Imagem ou placeholder com hover de câmera
   const imgWrap = document.createElement('div');
@@ -205,5 +207,75 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
 
   body.appendChild(acoes);
   card.appendChild(body);
-  document.getElementById(gridId).prepend(card);
+  card.setAttribute('draggable', 'true');
+  document.getElementById(gridId).appendChild(card);
+}
+
+function initDragDrop(gridId, endpoint) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+
+  let dragging = null;
+
+  grid.addEventListener('dragstart', e => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
+    dragging = card;
+    setTimeout(() => card.style.opacity = '0.4', 0);
+  });
+
+  grid.addEventListener('dragend', e => {
+    const card = e.target.closest('.project-card');
+    if (!card) return;
+    card.style.opacity = '1';
+    dragging = null;
+    grid.querySelectorAll('.project-card').forEach(c => c.style.outline = '');
+  });
+
+  grid.addEventListener('dragover', e => {
+    e.preventDefault();
+    const card = e.target.closest('.project-card');
+    if (!card || card === dragging) return;
+
+    grid.querySelectorAll('.project-card').forEach(c => c.style.outline = '');
+    card.style.outline = '2px dashed var(--accent)';
+
+    const rect = card.getBoundingClientRect();
+    const meio = rect.top + rect.height / 2;
+    if (e.clientY < meio) {
+      grid.insertBefore(dragging, card);
+    } else {
+      grid.insertBefore(dragging, card.nextSibling);
+    }
+  });
+
+  grid.addEventListener('dragleave', e => {
+    const card = e.target.closest('.project-card');
+    if (card) card.style.outline = '';
+  });
+
+  
+  grid.addEventListener('drop', e => {
+    e.preventDefault();
+    grid.querySelectorAll('.project-card').forEach(c => c.style.outline = '');
+
+    // Captura a nova ordem dos IDs baseada na posição visual dos elementos
+    const cards = Array.from(grid.querySelectorAll('.project-card'));
+    const ids = cards.map(card => card.dataset.id).filter(id => id !== undefined);
+
+    // Envia para o servidor salvar a nova ordem
+    if (endpoint && ids.length > 0) {
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'update_order',
+          ids: ids
+        })
+      })
+      .then(r => r.json())
+      .then(data => console.log('Ordem salva:', data))
+      .catch(err => console.error('Erro ao salvar ordem:', err));
+    }
+  });
 }

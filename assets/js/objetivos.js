@@ -67,3 +67,5 @@ document.getElementById('btnObjetivos').addEventListener('click', () => {
 if (localStorage.getItem('viewAtual') === 'objetivos') {
   carregarobjetivos();
 }
+
+initDragDrop('projectsGridObj', 'api/objetivos.php');
