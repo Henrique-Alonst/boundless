@@ -4,8 +4,8 @@
 
   <div class="section">
     <h2 class="section-title">💳 &nbsp;Cartões</h2>
-     
-     <div id="totalCartao" style="
+
+    <div id="totalCartao" style="
       font-family: 'Special Elite', monospace;
       font-size: 13px;
       letter-spacing: 1px;
@@ -44,25 +44,5 @@
     ">+ Novo Cartão</button>
   </div>
 
-  <div class="section">
-    <h2 class="section-title">✎ &nbsp;Observações</h2>
-    <textarea id="finObservacao" placeholder="Ex: esse mês preciso gastar menos..." style="
-      width: 100%;
-      min-height: 80px;
-      background: transparent;
-      border: none;
-      border-bottom: 1.5px dashed var(--ink-light);
-      outline: none;
-      resize: vertical;
-      font-family: 'Lora', Georgia, serif;
-      font-size: 14px;
-      color: var(--ink);
-      line-height: 1.7;
-      padding: 4px;
-    "></textarea>
-    <button class="save-btn" id="btnSalvar">Salvar nota</button>
-  </div>
-
-  </div>
 </div>
-
+</div>

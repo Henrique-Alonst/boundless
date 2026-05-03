@@ -8,7 +8,7 @@
       <button class="btn-cartao" id="btnCartao">💳 Cartões</button>
     </div>
 
-       <!-- Total geral -->
+    <!-- Total geral -->
     <div id="totalGeral" style="
       font-family: 'Special Elite', monospace;
       font-size: 12px;
@@ -62,25 +62,5 @@
       cursor: pointer;
       transition: background 0.18s;
     ">+ Novo Mês</button>
-  </div>
-
-  <!-- Anotação livre -->
-  <div class="section">
-    <h2 class="section-title">✎ &nbsp;Observações</h2>
-    <textarea id="finObservacao" placeholder="Ex: esse mês preciso gastar menos..." style="
-      width: 100%;
-      min-height: 80px;
-      background: transparent;
-      border: none;
-      border-bottom: 1.5px dashed var(--ink-light);
-      outline: none;
-      resize: vertical;
-      font-family: 'Lora', Georgia, serif;
-      font-size: 14px;
-      color: var(--ink);
-      line-height: 1.7;
-      padding: 4px;
-    "></textarea>
-     <button class="save-btn" id="btnSalvar">Salvar nota</button>
   </div>
 </div>
