@@ -95,6 +95,8 @@
 
     <!-- ====== OBJETIVOS ====== -->
     <?php require_once 'pages/objetivos.php'; ?>
+    <!-- OBJETIVO DETALHE -->
+    <?php require_once 'pages/objetivo_detalhe.php'; ?>
 
     <!-- ====== FINANÇAS ====== -->
     <?php require_once 'pages/financas.php'; ?>
@@ -118,6 +120,7 @@
   <script src="assets/js/financas.js"></script>
   <script src="assets/js/cartao.js"></script>
   <script src="assets/js/objetivos.js"></script>
+  <script src="assets/js/objetivo_detalhe.js"></script>
   <script src="assets/js/projetos.js"></script>
   
 </body>

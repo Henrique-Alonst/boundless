@@ -205,6 +205,32 @@ function adicionarCard(gridId, nome, desc, status, tags, link, imgSrc, placehold
     }
   );
 
+  // Botão abrir detalhe — só pra objetivos
+if (endpoint === 'api/objetivos.php' && id) {
+  const btnAbrir = document.createElement('button');
+  btnAbrir.textContent = '↗ Abrir';
+  btnAbrir.style.cssText = `
+    font-family:'Special Elite',monospace;
+    font-size:10px; letter-spacing:1px;
+    background:none; border:1px solid var(--green);
+    border-radius:2px; padding:3px 8px;
+    cursor:pointer; color:var(--green);
+    transition: all 0.15s;
+  `;
+  btnAbrir.addEventListener('click', () => {
+    abrirObjetivoDetalhe(
+      id,
+      card.querySelector('.card-name').textContent,
+      card.querySelector('.card-desc').textContent,
+      statusCiclo[statusAtual],
+      imgSrc
+    );
+  });
+  acoes.insertBefore(btnAbrir, acoes.firstChild);
+}
+
+body.appendChild(acoes);
+
   body.appendChild(acoes);
   card.appendChild(body);
   card.setAttribute('draggable', 'true');

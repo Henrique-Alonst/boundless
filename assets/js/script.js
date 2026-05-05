@@ -33,6 +33,7 @@ const views = {
   projetos: document.getElementById('view-projetos'),
   financas: document.getElementById('view-financas'),
   objetivos: document.getElementById('view-objetivos'),
+  'objetivo-detalhe': document.getElementById('view-objetivo-detalhe'),
   cartao: document.getElementById('view-cartao'),
 };
 
