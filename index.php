@@ -36,31 +36,38 @@
             <h2 class="section-title">✐ &nbsp;Seções</h2>
             <div class="nav-cards">
               <div class="nav-card" id="btnCaderno">
-                <span class="big-icon">📒</span>
+                <span class="big-icon">📓</span>
                 <div>
                   <div>Caderno</div>
                   <span class="card-sub">ANOTAÇÕES →</span>
                 </div>
               </div>
               <div class="nav-card" id="btnFinanca">
-                <span class="big-icon">📒</span>
+                <span class="big-icon">🪙</span>
                 <div>
                   <div>Finanças</div>
                   <span class="card-sub">FINANÇAS →</span>
                 </div>
               </div>
               <div class="nav-card" id="btnObjetivos">
-                <span class="big-icon">📒</span>
+                <span class="big-icon">🚀</span>
                 <div>
                   <div>Objetivos</div>
                   <span class="card-sub">OBJETIVOS →</span>
                 </div>
               </div>
               <div class="nav-card" id="btnProjetos">
-                <span class="big-icon">🗂️</span>
+                <span class="big-icon">🗃️</span>
                 <div>
                   <div>Projetos</div>
                   <span class="card-sub">VER TODOS →</span>
+                </div>
+              </div>
+              <div class="nav-card" id="btnEstudos">
+                <span class="big-icon">👨🏽‍🎓</span>
+                <div>
+                  <div>Estudos</div>
+                  <span class="card-sub">VER ESTUDOS →</span>
                 </div>
               </div>
               
@@ -101,7 +108,9 @@
     <!-- ====== FINANÇAS ====== -->
     <?php require_once 'pages/financas.php'; ?>
     <?php require_once 'pages/cartao.php'; ?>
-
+    
+    <!-- ====== FINANÇAS ====== -->
+    <?php require_once 'pages/estudos.php';?>
 
   </div><!-- /page -->
 
