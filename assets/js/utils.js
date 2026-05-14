@@ -229,7 +229,28 @@ if (endpoint === 'api/objetivos.php' && id) {
   acoes.insertBefore(btnAbrir, acoes.firstChild);
 }
 
-body.appendChild(acoes);
+if (endpoint === 'api/estudos.php' && id) {
+  const btnAbrir = document.createElement('button');
+  btnAbrir.textContent = '↗ Abrir';
+  btnAbrir.style.cssText = `
+    font-family:'Special Elite',monospace;
+    font-size:10px; letter-spacing:1px;
+    background:none; border:1px solid var(--green);
+    border-radius:2px; padding:3px 8px;
+    cursor:pointer; color:var(--green);
+    transition: all 0.15s;
+  `;
+  btnAbrir.addEventListener('click', () => {
+    abrirEstudoDetalhe(
+      id,
+      card.querySelector('.card-name').textContent,
+      card.querySelector('.card-desc').textContent,
+      statusCiclo[statusAtual],
+      imgSrc
+    );
+  });
+  acoes.insertBefore(btnAbrir, acoes.firstChild);
+}
 
   body.appendChild(acoes);
   card.appendChild(body);

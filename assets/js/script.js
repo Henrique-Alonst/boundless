@@ -1,6 +1,5 @@
 // assets/js/script.js
-financas: document.getElementById('view-financas')
-document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));
+
 // ===== HELPERS =====
 const meses = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const dias   = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
@@ -35,6 +34,8 @@ const views = {
   objetivos: document.getElementById('view-objetivos'),
   'objetivo-detalhe': document.getElementById('view-objetivo-detalhe'),
   cartao: document.getElementById('view-cartao'),
+  estudos:            document.getElementById('view-estudos'),         
+  'estudo-detalhe':   document.getElementById('view-estudo-detalhe'), 
 };
 
 function showView(name) {
@@ -54,7 +55,8 @@ document.getElementById('btnCaderno') .addEventListener('click', () => showView(
 document.getElementById('btnProjetos').addEventListener('click', () => showView('projetos'));
 document.getElementById('btnObjetivos').addEventListener('click', () => showView('objetivos'));
 document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));
-document.getElementById('btnCartao').addEventListener('click', () => showView('cartao'))
+document.getElementById('btnCartao').addEventListener('click', () => showView('cartao'));
+document.getElementById('btnEstudos').addEventListener('click', () => showView('estudos'));
 document.querySelectorAll('[data-back]').forEach(btn => btn.addEventListener('click', () => showView('home')));
 document.querySelectorAll('[data-back-financas]').forEach(btn => 
   btn.addEventListener('click', () => {showView('financas'); 

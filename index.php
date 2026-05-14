@@ -109,8 +109,12 @@
     <?php require_once 'pages/financas.php'; ?>
     <?php require_once 'pages/cartao.php'; ?>
     
-    <!-- ====== FINANÇAS ====== -->
-    <?php require_once 'pages/estudos.php';?>
+  <!-- ====== ESTUDOS ====== -->
+    <?php require_once 'pages/estudos.php'; ?>
+    <!-- ESTUDO DETALHE -->
+    <?php require_once 'pages/estudo_detalhe.php'; ?>
+
+    
 
   </div><!-- /page -->
 
@@ -131,6 +135,8 @@
   <script src="assets/js/objetivos.js"></script>
   <script src="assets/js/objetivo_detalhe.js"></script>
   <script src="assets/js/projetos.js"></script>
+  <script src="assets/js/estudos.js"></script>
+  <script src="assets/js/estudo_detalhe.js"></script>
   
 </body>
 </html>
