@@ -28,7 +28,6 @@ document.getElementById('currentDate').innerHTML =
 // ===== NAVEGAÇÃO =====
 const views = {
   home:     document.getElementById('view-home'),
-  caderno:  document.getElementById('view-caderno'),
   projetos: document.getElementById('view-projetos'),
   financas: document.getElementById('view-financas'),
   objetivos: document.getElementById('view-objetivos'),
@@ -51,7 +50,6 @@ if (viewSalva && views[viewSalva]) {
   showView(viewSalva);
 }
 
-document.getElementById('btnCaderno') .addEventListener('click', () => showView('caderno'));
 document.getElementById('btnProjetos').addEventListener('click', () => showView('projetos'));
 document.getElementById('btnObjetivos').addEventListener('click', () => showView('objetivos'));
 document.getElementById('btnFinanca').addEventListener('click', () => showView('financas'));

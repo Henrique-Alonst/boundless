@@ -35,13 +35,6 @@
           <div class="section">
             <h2 class="section-title">✐ &nbsp;Seções</h2>
             <div class="nav-cards">
-              <div class="nav-card" id="btnCaderno">
-                <span class="big-icon">📓</span>
-                <div>
-                  <div>Caderno</div>
-                  <span class="card-sub">ANOTAÇÕES →</span>
-                </div>
-              </div>
               <div class="nav-card" id="btnFinanca">
                 <span class="big-icon">🪙</span>
                 <div>
@@ -94,8 +87,7 @@
       </div>
     </div>
 
-    <!-- ====== CADERNO ====== -->
-    <?php require_once 'pages/caderno.php'; ?>
+  
 
     <!-- ====== PROJETOS ====== -->
     <?php require_once 'pages/projetos.php'; ?>
@@ -128,8 +120,6 @@
   
   <script src="assets/js/utils.js"></script>
   <script src="assets/js/script.js"></script>
-  
-  <script src="assets/js/caderno.js"></script>
   <script src="assets/js/financas.js"></script>
   <script src="assets/js/cartao.js"></script>
   <script src="assets/js/objetivos.js"></script>
